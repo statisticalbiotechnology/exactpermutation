@@ -7,8 +7,8 @@ import matplotlib.pyplot as plt
 
 df = pd.DataFrame(columns=['exact', 'mwu', 'ttest'])
 
-number_of_tests = 100
-sample_size = 20
+number_of_tests = 500
+sample_size = 25
 
 for ix in range(number_of_tests):
     a= rnd.normal(0.0, 1.0, sample_size)
