@@ -5,7 +5,9 @@
 I tested 500 draws of 2-sample comparisons with 25 picks each from 2 normal distributions with slightly
 shifted means. I tested this against my exact test, a mann-whiteney u-test and a standard t-test. The script
 found in
-[../src/method_scatter.py](../src/method_scatter.py)
+[../src/method_scatter.py](../src/method_scatter.py), committed as 8b9e8b.
+
+
 It seems like my exact test follows the t-test pretty well for these normal distributed data.
 ![Scatter](./img/method_scatter.png "Scatter plot")
 
