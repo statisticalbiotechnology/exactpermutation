@@ -1,5 +1,13 @@
 # Notebook for exactpermutation project
 
+## 2019-02-24B Testing with real data
+
+I modified the script to  [../exp/ms_patrients/ms_scatter.py](../exp/ms_patrients/ms_scatter.py) to operate on RT's p-values, instead of my own t-test p-values.
+
+![Scatter](./img/loglog_anova_calibration.png "Calibration plot")
+
+![Scatter](./img/4meth_calibration.png "Scatter plot")
+
 ## 2019-02-24 Testing with real data
 
 After a long wait I received RT's data that he used for his calibration tests. I used a script [../exp/ms_patrients/ms_scatter.py](../exp/ms_patrients/ms_scatter.py) to check the calibration of t-tests against my exact test.
