@@ -4,7 +4,7 @@
 
 After a long wait I received RT's data that he used for his calibration tests. I used a script [../exp/ms_patrients/ms_scatter.py](../exp/ms_patrients/ms_scatter.py) to check the calibration of t-tests against my exact test.
 
-![Scatter](./img/loglog_calibration.png "calibration plot")
+![Scatter](./img/loglog_calibration.png "Calibration plot")
 
 ![Scatter](./img/3meth_calibration.png "Scatter plot")
 
