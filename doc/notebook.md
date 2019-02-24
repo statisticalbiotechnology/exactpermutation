@@ -1,5 +1,15 @@
 # Notebook for exactpermutation project
 
+## 2019-02-24 Testing with real data
+
+After a long wait I received RT's data that he used for his calibration tests. I used a script [../exp/ms_patrients/ms_scatter.py](../exp/ms_patrients/ms_scatter.py) to check the calibration of t-tests against my exact test.
+
+![Scatter](./img/loglog_calibration.png "calibration plot")
+
+![Scatter](./img/3meth_calibration.png "Scatter plot")
+
+
+
 ## 2019-02-19 Generated scatter plot
 
 I tested 500 draws of 2-sample comparisons with 25 picks each from 2 normal distributions with slightly

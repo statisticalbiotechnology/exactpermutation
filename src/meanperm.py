@@ -1,7 +1,7 @@
 #/usr/bin python
 import numpy as np
 
-def significance_of_mean(a,b,num_bin = 50, data_type=np.float64): #
+def significance_of_mean(a,b,num_bin = 200, data_type=np.float64): #
 
     # discretize
     ab = np.sort(np.concatenate((a, b), axis=None))[::-1]
