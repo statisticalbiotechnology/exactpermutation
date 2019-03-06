@@ -1,5 +1,14 @@
 # Notebook for exactpermutation project
 
+## 2019-03-06 Testing with CLL data
+
+I refurbished the ploting scripts so that they save their $p$ value data. Scipt found at  [../src/scatter_plots.py](../src/scatter_plots.py).
+
+Running with CLL data gave the following calibration plot:
+![Scatter](./img/cll_loglog_calibration.png "Calibration plot")
+
+It looks like the ANOVA model has a decent calibration.
+
 ## 2019-02-24B Testing with real data
 
 I modified the script to  [../exp/ms_patrients/ms_scatter.py](../exp/ms_patrients/ms_scatter.py) to operate on RT's p-values, instead of my own t-test p-values.

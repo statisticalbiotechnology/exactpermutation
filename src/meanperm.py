@@ -14,15 +14,14 @@ def significance_of_mean(a,b,num_bin = 200, data_type=np.float64): #
     else:
         score = sum(np.digitize(a,bins))
     L = len(ab)
-#    print(digitized)
-#    print(K,S,L,score)
+    # Initiate matrix
+    # N(s,l) number of ways to reach a sum of s using k of the l first readouts
+    # Calculated by iterating over the 
     N = np.zeros((S,L), dtype=data_type)
     for l in range(L):
         b=digitized[l]
         N[b,l] = np.uint64(1)
     for k in range(1,K):
-#        print(np.sum(N,axis=1))
-#        print(N)
         for s in range(S-1,-1,-1):
             row_sum = data_type(0)
             for l in range(L):
@@ -30,11 +29,8 @@ def significance_of_mean(a,b,num_bin = 200, data_type=np.float64): #
                 if l>0:
                     row_sum += N[s,l-1]
                 if s+b<S:
-#                    print(s,b,l,row_sum)
                     N[s+b,l] = row_sum
     NN = np.sum(N,axis=1)
-#    print(NN)
-#    print(np.sum(NN))
     one_side = NN[score]/2.0
     if score+1<S:
         one_side += min(np.sum(NN[score+1:]), np.sum(NN[:score]))
