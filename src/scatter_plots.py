@@ -14,24 +14,28 @@ def log_result(result):
     # result_list is modified only by the main process, not the pool workers.
     result_df.loc[r] = result
     r += 1
+    print(result)
 
 def p_value_calc(a,b,dig_res):
     p1 = significance_of_mean(a,b,dig_res)[0]
     p2 = stat.mannwhitneyu(a,b,alternative="two-sided")[1]
     p3 = stat.ttest_ind(a, b)[1]
+    print([p1,p2,p3])
     return [p1,p2,p3]
 
 # Generic Thread pool code from https://gist.github.com/heavywatal/d05a8c8a9c38ab5c895464b1d64c224f
 import multiprocessing
 import multiprocessing.pool as mpp
-def mpp_tp(call,tasks,lg_results):
+def mpp_tp(call,tasks,lg_result):
     with mpp.ThreadPool(multiprocessing.cpu_count()-1) as pool:
-        results = [pool.apply_async(call, tpl) for tpl in tasks]
-        for async_result in results:
-            try:
-                lg_result(async_result.get())
-            except ValueError as e:
-                print(e)
+        results = [pool.apply_async(call, args=tpl, callback=lg_result) for tpl in tasks]
+        pool.close()
+        pool.join()
+#        for async_result in results:
+#            try:
+#                lg_result(async_result.get())
+#            except ValueError as e:
+#                print(e)
 
 def _core_async(data,a_pattern,b_pattern,prefix,dig_res):
         a_cols = [col for col in data.columns if a_pattern in col]
@@ -42,6 +46,7 @@ def _core_async(data,a_pattern,b_pattern,prefix,dig_res):
             a = np.array(row[a_cols],dtype='float64')
             b = np.array(row[b_cols],dtype='float64')
             tasks.append((a,b,dig_res,))
+            print("parsed row",index)
         mpp_tp(p_value_calc,tasks,log_result)
 
 def _core(data,a_pattern,b_pattern,prefix,dig_res):
@@ -52,7 +57,6 @@ def _core(data,a_pattern,b_pattern,prefix,dig_res):
             b = np.array(row[b_cols],dtype='float64')
             ps = p_value_calc(a,b,dig_res)
             log_result(ps)
-            print(ps)
 
 
 def scatter_from_df(data,a_pattern,b_pattern,prefix="my_",dig_res=200,pkl_file="pvals.pkl",threaded=True):

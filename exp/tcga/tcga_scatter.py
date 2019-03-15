@@ -10,5 +10,4 @@ sys.path.append("../../src/")
 from scatter_plots import *
 
 tcga_data = pd.read_csv("eig_stat_tcga.csv",  delimiter="\t")
-scatter_from_df(cll_data,'_T_','_R_','tcga_',200)
-
+scatter_from_df(tcga_data,'_T_','_R_','tcga_',200)
