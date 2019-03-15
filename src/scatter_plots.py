@@ -8,13 +8,14 @@ import sys
 from meanperm import *
 from pathlib import Path
 
-
-result_df,r = pd.DataFrame(columns=['exact', 'mwu', 'ttest']),0
+result_df = pd.DataFrame(columns=['exact', 'mwu', 'ttest'])
+rix = 0
 def log_result(result):
     # result_list is modified only by the main process, not the pool workers.
-    result_df.loc[r] = result
-    r += 1
-    print(result)
+    global result_df
+    global rix
+    result_df.loc[rix] = result
+    rix += 1
 
 def p_value_calc(a,b,dig_res):
     p1 = significance_of_mean(a,b,dig_res)[0]
@@ -46,7 +47,6 @@ def _core_async(data,a_pattern,b_pattern,prefix,dig_res):
             a = np.array(row[a_cols],dtype='float64')
             b = np.array(row[b_cols],dtype='float64')
             tasks.append((a,b,dig_res,))
-            print("parsed row",index)
         mpp_tp(p_value_calc,tasks,log_result)
 
 def _core(data,a_pattern,b_pattern,prefix,dig_res):
@@ -60,6 +60,7 @@ def _core(data,a_pattern,b_pattern,prefix,dig_res):
 
 
 def scatter_from_df(data,a_pattern,b_pattern,prefix="my_",dig_res=200,pkl_file="pvals.pkl",threaded=True):
+    global result_df
     result_file = Path(pkl_file)
     if not result_file.exists():
         if threaded:
