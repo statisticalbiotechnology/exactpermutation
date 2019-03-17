@@ -17,7 +17,8 @@ def log_result(result):
     result_df.loc[rix] = result
     rix += 1
 
-def p_value_calc(a,b,dig_res):
+def p_value_calc(args):
+    a,b,dig_res = args
     p1 = significance_of_mean(a,b,dig_res)[0]
     p2 = stat.mannwhitneyu(a,b,alternative="two-sided")[1]
     p3 = stat.ttest_ind(a, b)[1]
@@ -26,13 +27,13 @@ def p_value_calc(a,b,dig_res):
 
 # Generic Thread pool code from https://gist.github.com/heavywatal/d05a8c8a9c38ab5c895464b1d64c224f
 import multiprocessing
-import multiprocessing.pool as mpp
+import concurrent.futures as cf
+
 def mpp_tp(call,tasks,lg_result):
-    with mpp.ThreadPool(multiprocessing.cpu_count()-1) as pool:
-        results = [pool.apply_async(call, args=tpl, callback=lg_result) for tpl in tasks]
-        pool.close()
-        pool.join()
-#        for async_result in results:
+    with cf.ProcessPoolExecutor(max_workers=multiprocessing.cpu_count()) as pool:
+        results = pool.map(call, tasks)
+        for result in results:
+            lg_result(result)
 #            try:
 #                lg_result(async_result.get())
 #            except ValueError as e:
@@ -46,7 +47,7 @@ def _core_async(data,a_pattern,b_pattern,prefix,dig_res):
         for index, row in data.iterrows():
             a = np.array(row[a_cols],dtype='float64')
             b = np.array(row[b_cols],dtype='float64')
-            tasks.append((a,b,dig_res,))
+            tasks.append((a,b,dig_res))
         mpp_tp(p_value_calc,tasks,log_result)
 
 def _core(data,a_pattern,b_pattern,prefix,dig_res):
@@ -55,7 +56,7 @@ def _core(data,a_pattern,b_pattern,prefix,dig_res):
         for index, row in data.iterrows():
             a = np.array(row[a_cols],dtype='float64')
             b = np.array(row[b_cols],dtype='float64')
-            ps = p_value_calc(a,b,dig_res)
+            ps = p_value_calc((a,b,dig_res))
             log_result(ps)
 
 
