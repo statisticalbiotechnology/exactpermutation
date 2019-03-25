@@ -1,5 +1,12 @@
 # Notebook for exactpermutation project
 
+## 2019-03-25 TCGA data
+
+Despite parallelization of [../src/scatter_plots.py](../src/scatter_plots.py), the execution on the TCGA dataset is rather slow. The results seem to suggest that the very lowest $p$ values are anti-conservative.
+
+![Scatter](./img/tcga_loglog_calibration.png "Calibration plot")
+
+
 ## 2019-03-06 Testing with CLL data
 
 I refurbished the ploting scripts so that they save their $p$ value data. Scipt found at  [../src/scatter_plots.py](../src/scatter_plots.py).
