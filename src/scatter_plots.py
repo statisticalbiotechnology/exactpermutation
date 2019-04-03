@@ -30,7 +30,7 @@ import multiprocessing
 import concurrent.futures as cf
 
 def mpp_tp(call,tasks,lg_result):
-    with cf.ProcessPoolExecutor(max_workers=multiprocessing.cpu_count()) as pool:
+    with cf.ProcessPoolExecutor(max_workers=multiprocessing.cpu_count()-1) as pool:
         results = pool.map(call, tasks)
         for result in results:
             lg_result(result)
