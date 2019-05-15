@@ -1,5 +1,14 @@
 # Notebook for exactpermutation project
 
+## 2019-05-15 Calibration tests
+
+I implemented a calibration test for any given distribution [../src/calibration_test.py](../src/calibration_test.py). Testing it for a beta(2,5) distribution gave the following plot:
+![Scatter](./img/beta_2_5_loglog.png "Calibration plot")
+
+.. and a beta(0.5,0.5) distribution gave the following plot:
+![Scatter](./img/beta_05_05_loglog.png "Calibration plot")
+
+
 ## 2019-03-25 TCGA data
 
 Despite parallelization of [../src/scatter_plots.py](../src/scatter_plots.py), the execution on the TCGA dataset is rather slow. The results seem to suggest that the very lowest $p$ values are anti-conservative.
