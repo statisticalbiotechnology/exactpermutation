@@ -41,7 +41,6 @@ def calibration_test(distribution,num_tests,num_examples):
 def my_scatter_plot(df,save_name):
     sns.set(style="white")
     sns.set_context("talk")
-
     low = min(df["Theoretical p-value"])
     hi = max(df["Theoretical p-value"])
     f, ax = plt.subplots(figsize=(7, 7))
@@ -53,8 +52,20 @@ def my_scatter_plot(df,save_name):
     sns.despine()
     f.savefig(save_name)
 
+def multiple_scatter_plot(df,save_name):
+    sns.set(style="white")
+    sns.set_context("talk")
+    low = min(df["Theoretical p-value"])
+    hi = max(df["Theoretical p-value"])
+    f, ax = plt.subplots(figsize=(7, 7))
+    ax.set(xscale="log", yscale="log")
+    g = sns.lineplot(x='Theoretical p-value', y ='Observed p-value', data=df,  ax=ax, err_style='bars', ci = "sd")
+    g.plot([low,hi], [low,hi], 'k-', linewidth=.5)
+    sns.despine()
+    f.savefig(save_name)
+
 if __name__ == "__main__":
     df = calibration_test(beta_dist_2_5,1000,40)
-    my_scatter_plot(df,"beta_2_5_loglog.png")
+    multiple_scatter_plot(df,"beta_2_5_loglog.png")
     df = calibration_test(beta_dist_05_05,1000,40)
-    my_scatter_plot(df,"beta_05_05_loglog.png")
+    multiple_scatter_plot(df,"beta_05_05_loglog.png")

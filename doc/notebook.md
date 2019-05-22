@@ -1,5 +1,14 @@
 # Notebook for exactpermutation project
 
+## 2019-05-22 Repeated calibration tests
+
+I repeated the calibration test 20 times using the following code,[../exp/multiple_calibration/multiple_run_calibration.py](../exp/multiple_calibration/multiple_run_calibration.py). For  beta(2,5) I get:
+
+![Scatter](../exp/multiple_calibration/repeated_beta_2_5_loglog.png "Calibration plot")
+
+.. and for beta(0.5,0.5) I get:
+![Scatter](../exp/multiple_calibration/repeated_beta_05_05_loglog.png "Calibration plot")
+
 ## 2019-05-15 Calibration tests
 
 I implemented a calibration test for any given distribution [../src/calibration_test.py](../src/calibration_test.py). Testing it for a beta(2,5) distribution gave the following plot:
